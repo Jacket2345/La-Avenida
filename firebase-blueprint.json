@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "MenuItem": {
+      "title": "Menu Item",
+      "description": "A food or drink item on the menu.",
+      "type": "object",
+      "properties": {
+        "category": { "type": "string", "maxLength": 100 },
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "img": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["category", "name", "description", "img", "createdAt", "updatedAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User review for a menu item.",
+      "type": "object",
+      "properties": {
+        "author": { "type": "string", "maxLength": 100 },
+        "rating": { "type": "number", "minimum": 1, "maximum": 5 },
+        "comment": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["author", "rating", "comment", "createdAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin user allowed to manage the menu.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" }
+      },
+      "required": ["email"]
+    }
+  },
+  "firestore": {
+    "/menu": {
+      "schema": { "$ref": "#/entities/MenuItem" },
+      "description": "Collection of menu items."
+    },
+    "/menu/{menuId}/reviews": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Subcollection of reviews for a given menu item."
+    },
+    "/admins": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "List of admin users."
+    }
+  }
+}
